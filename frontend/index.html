@@ -5,6 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="google-signin-client_id"
+    content="683676346795-utgr72b5s5ikorq2udd8qpr1sap1jr7b.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <title>BscHub</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -20,7 +23,7 @@
     }
 
     .wrapper {
-      background: #171c24;
+      background: #213343;
       width: 100%;
     }
 
@@ -319,21 +322,25 @@
     .btn {
       border: none;
     }
+
+    footer a {
+      color: #b6c7d6;
+    }
   </style>
 </head>
 
 <body>
   <div style="display: grid; grid-template-columns: repeat(3,1fr);gap: 20px;">
-    <div style="background: #171c24;">
+    <div style="background: #213343;">
       <h2 style="color: red">Business Services and Computing</h2>
     </div>
     <div style="display: flex; align-items: center;justify-content: end;">
-      <a id="logbtn" href="" class="btn"
-        style="padding:2% 20%; background-color: red; border-radius: 10px;color: white;font-family: sans-serif;font-weight: bold;">LOGIN</a>
+      <a id="logbtn" href="http://localhost:5000/auth/google" class="btn"
+        style="padding:2% 15%; background-color: red; border-radius: 10px;color: white;font-family: sans-serif;font-weight: bold;">LOGIN</a>
     </div>
     <div style="display: flex; align-items: center;justify-content: start;">
       <a id="signbtn" href="" class="btn"
-        style="padding:2% 20%;background-color: red; border-radius: 10px;color: white; font-family: sans-serif;font-weight: bold;">SIGNUP</a>
+        style="padding:2% 15%;background-color: red; border-radius: 10px;color: white; font-family: sans-serif;font-weight: bold;">SIGNUP</a>
     </div>
   </div>
   <div class="wrapper">
@@ -720,10 +727,8 @@
 
     </div>
   </div>
-
-
-  <div style="text-align: center;background-color: #4fb06d;">
-    <div style="color: white;padding: 5%;width: 85%;margin: auto;">
+  <div style="text-align: center;background-color: #4fb06d;padding: 3% 9% 6% 5%;">
+    <div style="color: white;;width: 85%;margin: auto;">
       <div>
         <div>
           <h3>Learn and grow better with award-winning support and a thriving community.</h3>
@@ -771,7 +776,111 @@
       </div>
     </div>
   </div>
+  <!-- footer -->
 
+
+  <footer style="color: white; background-color: #213343; padding: 5% 0%;">
+    <div style="display: flex; width: 80%; margin: auto;gap: 30px;">
+      <div>
+        <h5 style="margin-bottom: 20px;">Popular Features</h5 style="margin-bottom: 20px;">
+        <div style="display: flex;gap: 2%;">
+          <div>
+            <div style="margin-bottom: 5%;"><a href="#">All Products and Features</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Free Meeting Scheduler App</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Social Media Tools</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Email Tracking Software</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Sales Email Automation</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Ads Software</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Email Marketing Software</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Lead Management Software</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Pipeline Management Tools</a></div>
+          </div>
+          <div>
+            <div style="margin-bottom: 5%;"><a href="#">Free Website Builder</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Sales Email Templates</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Help Desk Software</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Free Online Form Builder</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Free Chatbot Builder</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Free Live Chat Software</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Marketing Analytics</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Free Landing Page Builder</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Free Web Hosting</a></div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div style=" display: flex;gap: 2%;">
+        <div>
+          <h5 style="margin-bottom: 20px;">Free Tools</h5 style="margin-bottom: 20px;">
+          <div>
+            <div style="margin-bottom: 5%;"><a href="#">Website Grader</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Make My Persona</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Email Signature Generator</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Brand Kit Generator</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Blog Ideas Generator</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Invoice Template Generator</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Marketing Plan Generator</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Free Business Templates</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Industry Benchmark Data</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Software Comparisons</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Library</a></div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <h5 style="margin-bottom: 20px;">Company</h5 style="margin-bottom: 20px;">
+            <div style="margin-bottom: 5%;"><a href="#">About Us</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Careers</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Management Team</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Board of Directors</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Investor Relations</a></div>
+          </div>
+        </div>
+        <div>
+          <h5 style="margin-bottom: 20px;">Customers</h5 style="margin-bottom: 20px;">
+          <div>
+            <div style="margin-bottom: 5%;"><a href="#">Customer Support</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Join a Local User Group</a></div>
+          </div>
+          <div>
+            <h5 style="margin-bottom: 20px;">Partners</h5 style="margin-bottom: 20px;">
+            <div style="margin-bottom: 5%;"><a href="#">All Partner Programs</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">Solutions Partner Program</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">App Partner Program</a></div>
+            <div style="margin-bottom: 5%;"><a href="#">HubSpot for Startups</a></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div style="text-align: center;">
+      <div>
+        <h2 style="margin: 2% 0%;">BSCHUB</h2>
+      </div>
+      <div>
+        <p>Copyright © 2023 HubSpot, Inc.</p>
+      </div>
+      <div style="display: flex;justify-content: center;">
+        <div style="margin: 2% 2% 2%;"><a href="">Legal Stuff</a></div>
+        <div style="margin: 2% 2% 2%;"><a href="">Privacy Policy</a></div>
+        <div style="margin: 2% 2% 2%;"><a href="">Security</a></div>
+      </div>
+
+    </div>
+  </footer>
 </body>
+<script>
+  let logbtn = document.getElementById("logbtn")
+  logbtn.addEventListener("click", () => {
+    fetch("http:localhost:5000/")
+      .then(res => res.json())
+      .then((res) => {
+        // window.location.href = `${res}`
+      })
+  })
+</script>
 
 </html>
