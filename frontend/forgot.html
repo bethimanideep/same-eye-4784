@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="forgot.css">
+
+</head>
+
+<body>
+    <div class="fd">
+        <a href="index.html"><img src="https://i.ebayimg.com/images/g/-1EAAOSwkhJgjHii/s-l1600.png"
+                alt=""></a>
+    </div>
+    <div id="container">
+        <div>
+            <h1 id="welcome" class="cen">Verify Email</h1>
+        </div>
+        <div id="ifd">
+            <h4 class="in">Email Address</h4>
+            <input id="input1" type="text" placeholder="Email Address">
+            <div class="cen">
+                <div id="button"><button id="b1">submit</button></div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+<script>
+    let btn=document.getElementById("button")
+    let user=document.getElementById("input1")
+    btn.addEventListener("click",()=>{
+        console.log("dd");
+        let data={
+            email:user.value
+        }
+        fetch("http://localhost:5000/verify", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then((res)=>{
+                if(res=="notmatched"){
+                    alert("Email Not Found")
+                }
+                else if(res=="matched"){
+                    // localStorage.clear()
+                    localStorage.setItem("user",data.email)
+                    window.location.href="./confirmpass.html"
+                }
+            })
+            .catch(err => console.log(err))
+    })
+</script>
+
+</html>
