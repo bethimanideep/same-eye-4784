@@ -1,10 +1,10 @@
 const express = require("express")
 const path = require("path")
 const passport = require("passport")
-const bcrypt=require("bcrypt")
+const bcrypt = require("bcrypt")
 const session = require("express-session")
 const app = express()
-const cors=require("cors")
+const cors = require("cors")
 const { connection, temp, model } = require("./configs/db")
 const { validatoor } = require("./middleware/validator")
 app.use(cors())
@@ -22,11 +22,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/auth/google',
-passport.authenticate('google', {
-    scope:
-    ['email', 'profile']
-}
-));
+    passport.authenticate('google', {
+        scope:
+            ['email', 'profile']
+    }
+    ));
 
 
 app.use(session({
@@ -49,26 +49,26 @@ app.get('/auth/google/callback',
 app.get("/auth/google/failure", (req, res) => {
     res.send("went wrong")
 })
-app.get("/auth/protected", isLoggedIn, async(req, res) => {
-    let name=req.user
-    let data={
-        username:req.user.displayName,
-        email:req.user.email,
-        image:req.user.picture,
-        type:"google"
+app.get("/auth/protected", isLoggedIn, async (req, res) => {
+    let name = req.user
+    let data = {
+        username: req.user.displayName,
+        email: req.user.email,
+        image: req.user.picture,
+        type: "google"
     }
-    if(name){
-        let user=await model.findOne({email:data.email})
-        if(user==null){
-            let dbuser=new model(data)
+    if (name) {
+        let user = await model.findOne({ email: data.email })
+        if (user == null) {
+            let dbuser = new model(data)
             await dbuser.save()
-            let tempuser=new temp(data)
+            let tempuser = new temp(data)
             await temp.deleteMany()
             await tempuser.save()
             res.redirect("http://127.0.0.1:5501/frontend/temp.html")
-        }else{
+        } else {
             await temp.deleteMany()
-            let tempuser=new temp(data)
+            let tempuser = new temp(data)
             await tempuser.save()
             res.redirect("http://127.0.0.1:5501/frontend/temp.html")
         }
@@ -78,52 +78,74 @@ app.get("/auth/logout", isLoggedIn, (req, res) => {
     req.session.destroy()
     res.send("bye")
 })
-app.get("/tempuser",async(req,res)=>{
-    let user=await temp.find()
-    if(user.length===0){
+app.get("/tempuser", async (req, res) => {
+    let user = await temp.find()
+    if (user.length === 0) {
         res.json("false")
-    }else{
+    } else {
         res.json(user[0])
     }
 })
-app.post("/adduser",async(req,res)=>{
-    let email=req.body.email
-    let password=req.body.password
-    let user=await model.findOne({email})
-    if(user){
+app.post("/adduser", async (req, res) => {
+    let email = req.body.email
+    let password = req.body.password
+    let user = await model.findOne({ email })
+    if (user) {
         res.json("exists")
-    }else{
-        let hash=bcrypt.hashSync(password,5)
-        req.body.password=hash
-        let user=new model(req.body)
+    } else {
+        let hash = bcrypt.hashSync(password, 5)
+        req.body.password = hash
+        let user = new model(req.body)
         await user.save()
         res.json("success");
     }
-    
+
 })
-app.post("/loginuser",async(req,res)=>{
-    let email=req.body.email
-    let user=await model.findOne({email})
-    if(user){
+app.post("/loginuser", async (req, res) => {
+    let email = req.body.email
+    let user = await model.findOne({ email })
+    if (user) {
         await temp.deleteMany()
         res.json(user)
-    }else{
+    } else {
         res.json("notexists")
     }
 })
-app.post("/verify",async(req,res)=>{
-    let email=req.body.email
-    let user=await model.findOne({email})
-    if(user){
+app.post("/verify", async (req, res) => {
+    let email = req.body.email
+    let user = await model.findOne({ email })
+    if (user) {
         res.json("matched")
-    }else{
+    } else {
         res.json("notmatched")
     }
 })
-app.patch("/resetpassword",validatoor, async (req, res) => {
+app.patch("/resetpassword", validatoor, async (req, res) => {
     res.json("success")
 })
-app.listen(5000, async() => {
+app.get("/admin", async (req, res) => {
+    let users = await model.find()
+    res.json(users)
+})
+app.delete("/delete", async (req, res) => {
+    let id = req.body.id
+    await model.findByIdAndDelete({ _id: id })
+    let newdata = await model.find()
+    res.json(newdata)
+})
+app.patch("/updating", async (req, res) => {
+    let id = req.body.id
+    let val = req.body.value
+    let user = await model.findOne({ _id: id })
+    if (user) {
+        await model.findByIdAndUpdate({ _id: id }, { username: val })
+        let newdata = await model.find()
+        res.json(newdata)
+    } else {
+        res.json("error")
+    }
+})
+app.listen(5000, async () => {
     try {
         await connection
         console.log("connected to db");

@@ -212,9 +212,9 @@
                     <tr>
                         <td>ID</td>
                         <td>USERNAME</td>
-                        <td>DOB</td>
-                        <td>LOCATION</td>
-                        <td>ROLE</td>
+                        <td>EMAIL</td>
+                        <td>IMAGE</td>
+                        <td>UPDATE</td>
                     </tr>
                 </div>
             </thead>
@@ -236,90 +236,88 @@
     let v = JSON.parse(localStorage.getItem("tempuser"))
     let admin = localStorage.getItem("admin")
     if(admin){
-        fetch("http://localhost:5000/tempuser")
+        log.innerText="ADMIN"
+        sign.innerText="LogOut"
+        sign.setAttribute("href","./login.html")
+        sign.addEventListener("click",()=>{
+            localStorage.clear()
+        })
+        fetch("http://localhost:5000/admin")
         .then(res => res.json())
         .then((res) => {
-            console.log(res);
-            if (res == "false") {
-                localStorage.removeItem("tempuser")
-            } else {
-                localStorage.removeItem("currentuser")
-                localStorage.setItem("tempuser", JSON.stringify(res))
-                window.location.href="./services.html"
-            }
+            createdata(res)
+
         })
+    }else{
+        log.setAttribute("href","./login.html")
+        sign.setAttribute("href","./signup.html")
     }
 
 
     function createdata(data) {
         tbody.innerHTML = null;
-
-        data.forEach((el, index) => {
+        
+        data.forEach((ele, index) => {
             let tr = document.createElement("tr")
-            let t11 = document.createElement("td")
-            let t12 = document.createElement("td")
-            let input = document.createElement("input")
-            t11.append(input)
-            let submit = document.createElement("button")
-            submit.innerText = "SUBMIT"
-            t12.append(submit)
-            let td10 = document.createElement("select")
-            let op1 = document.createElement("option")
-            let op2 = document.createElement("option")
-            let op3 = document.createElement("option")
-            op1.value = "username"
-            op2.value = "dob"
-            op3.value = "location"
-            op1.innerText = "username"
-            op2.innerText = "dob"
-            op3.innerText = "location"
-            td10.append(op1, op2, op3)
-            td10.style.marginTop = "8px"
-            let td3 = document.createElement("td")
-            td3.textContent = el._id
-            let td4 = document.createElement("td")
-            td4.textContent = el.username
-            let td5 = document.createElement("td")
-            td5.textContent = el.dob
-            let td6 = document.createElement("td")
-            td6.textContent = el.location
-            let td7 = document.createElement("td")
-            td7.textContent = el.role
-            let td8 = document.createElement("td")
-            let td9 = document.createElement("td")
-            let checkotp = document.createElement('input')
-            let vcbtn = document.createElement('button')
-            vcbtn.innerText = 'UPDATE==>'
+            let  id= document.createElement("td")
+            let  username= document.createElement("td")
+            let  email= document.createElement("td")
+            let  image= document.createElement("td")
+            let  inputtd= document.createElement("td")
+            let  updatetd= document.createElement("td")
+            let  deletetd= document.createElement("td")
+            let  input= document.createElement("input")
             let delbtn = document.createElement('button')
+            let updatebtn = document.createElement('button')
+            let img = document.createElement('img')
+            let select = document.createElement('select')
+            let o1 = document.createElement('option')
+            
+            o1.innerText="Username"
+            
+            
+            id.innerText=ele._id
+            username.innerText=ele.username
+            email.innerText=ele.email
+            console.log(ele.image);
+            if(ele.image){
+                img.setAttribute("src",ele.image)
+            }else if(ele.image===undefined){
+                img.setAttribute("src","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Z9vjM-_Ww_rUHKOYFQ3brhBsKWniGSN7jembYtImHkPzHReyZ4zNBlPF550WjI8a_eE&usqp=CAU")
+            }
+            
+            updatebtn.innerText = 'UPDATE'
             delbtn.innerText = 'DELETE'
             delbtn.style.backgroundColor = 'red'
             delbtn.style.border = 'none'
             delbtn.style.padding = '10px 20px'
             delbtn.style.color = 'white'
             delbtn.style.borderRadius = '10px'
-            vcbtn.style.backgroundColor = 'green'
-            vcbtn.style.border = 'none'
-            vcbtn.style.padding = '10px 20px'
-            vcbtn.style.color = 'white'
-            vcbtn.style.borderRadius = '10px'
-            vcbtn.style.fontFamily = 'sans-serif'
-            vcbtn.style.fontWeight = '700'
             delbtn.style.fontFamily = 'sans-serif'
             delbtn.style.fontWeight = '700'
-
-
-            td8.append(vcbtn)
-            td9.append(delbtn)
-
-            tr.append(td3, td4, td5, td6, td7, td9, td8, td10, t11, t12)
+            img.style.width="30%"
+            select.style.marginTop="40px"
+            updatebtn.style.backgroundColor = 'green'
+            updatebtn.style.border = 'none'
+            updatebtn.style.padding = '10px 20px'
+            updatebtn.style.color = 'white'
+            updatebtn.style.borderRadius = '10px'
+            updatebtn.style.fontFamily = 'sans-serif'
+            updatebtn.style.fontWeight = '700'
+            select.append(o1)
+            updatetd.append(updatebtn)
+            deletetd.append(delbtn)
+            image.append(img)
+            inputtd.append(input)
+            tr.append(id,username,email,image,select,inputtd,updatetd,deletetd)
             tbody.append(tr)
 
             delbtn.addEventListener('click', () => {
-                if (v) {
+                if (admin) {
                     let data = {
-                        id: el._id
+                        id: ele._id
                     }
-                    fetch("https://tan-coati-belt.cyclic.app/app/delete", {
+                    fetch("http://localhost:5000/delete", {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json"
@@ -328,7 +326,7 @@
                     })
                         .then(res => res.json())
                         .then((res) => {
-                            alert("DELETE SUCESS")
+                            alert("DELETED SUCCESSFULLY")
                             tbody.innerHTML = null
                             createdata(res)
                         })
@@ -338,25 +336,19 @@
                 }
 
             })
-            submit.addEventListener('click', () => {
-                if (v === null) {
+            updatebtn.addEventListener('click', () => {
+                if (admin === null) {
                     alert("Login first")
                 } else if (input.value == "") {
                     alert("provide input field")
                 }
                 else {
-                    let name = localStorage.getItem("temp")
-                    let token = localStorage.getItem("token")
-
                     let data = {
-                        type: td10.value,
                         value: input.value,
-                        id: el._id,
-                        role: name,
-                        token: token
+                        id: ele._id
                     }
 
-                    fetch("https://tan-coati-belt.cyclic.app/app/updating", {
+                    fetch("http://localhost:5000/updating", {
                         method: "PATCH",
                         headers: {
                             "Content-Type": "application/json"
@@ -365,18 +357,11 @@
                     })
                         .then(res => res.json())
                         .then((res) => {
-                            if (res !== "notanadmin") {
+                            if (res) {
                                 alert("UPDATED SUCCESFULLY")
                                 tbody.innerHTML = null
                                 createdata(res)
-                                if (el.username === name) {
-                                    localStorage.clear()
-                                    window.location.href = "./login.html"
-                                }
-                            } else if (res == "notanadmin") {
-                                alert("Needed Admin Permission")
                             }
-
                         })
                         .catch(err => console.log(err))
                 }
