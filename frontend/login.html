@@ -97,6 +97,8 @@
     
     b1.addEventListener("click", () => {
         if (email.value == "admin" && password.value == "admin") {
+            localStorage.removeItem("currentuser")
+            localStorage.removeItem("tempuser")
             localStorage.setItem("admin","admin")
             window.location.href = "./admin.html"
         } else {
