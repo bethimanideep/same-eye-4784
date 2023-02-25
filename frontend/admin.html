@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container,
+        .container1 {
+            display: flex;
+            align-items: center;
+        }
+
+        body {
+            background: url("https://t4.ftcdn.net/jpg/00/58/99/07/360_F_58990717_6GkOtlWF1CirNp4cM7v5desXc8Ci8o64.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+        #logo {
+            width: 35%;
+        }
+
+        /* #maintodo {
+    display: flex;
+} */
+
+        #tododiv input {
+            width: 500px;
+            height: 400px;
+        }
+
+        .container {
+            margin: auto;
+            width: 95%;
+            margin-top: 2%;
+        }
+
+        .container img {
+            width: 280px;
+        }
+
+        .container1 {
+            margin-left: 22%;
+            gap: 50px;
+            margin-top: 2%;
+
+
+        }
+
+        .container1 p {
+            font-size: 21px;
+            color: black;
+        }
+
+
+        .ba {
+            text-decoration: none;
+            border: 1pt solid red;
+            padding: 10% 40%;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 5px;
+        }
+
+        .signup {
+            margin-left: 20%;
+            text-decoration: none;
+            border: 1pt solid red;
+            padding: 10% 40%;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 5px;
+        }
+
+        .page {
+            text-decoration: none;
+        }
+
+        #video {
+            display: flex;
+            margin-left: 2%;
+            height: 450px;
+            margin-top: 50px;
+        }
+
+        .v1 {
+            width: 40%;
+
+        }
+
+        .v1 h1 {
+            font-family: sans-serif;
+            color: #262A3B;
+            font-size: 3.34em;
+            line-height: 1.1em;
+            font-weight: 800;
+            text-align: left;
+            margin-bottom: 20px;
+
+        }
+
+        .v1 h5 {
+            line-height: 1.5em;
+            margin-top: 1px;
+            margin-bottom: 50px;
+
+            font-size: 1.60em;
+            font-weight: 400;
+            color: #262a3b;
+        }
+
+        .v2 {
+            padding-left: 120px;
+        }
+
+        #v {
+            background-image: url(https://cdn1.cronometer.com/brand2/assets/DotPatternLarge.svg);
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            width: 70%;
+
+        }
+
+        p {
+            font-family: sans-serif;
+        }
+
+        .reset {
+            background-color: #212121;
+            color: white;
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+            font-family: sans-serif;
+        }
+
+        td select {
+            padding: 5px;
+            margin: 0px;
+            background-color: yellow;
+        }
+
+        td button {
+            padding: 5px 10px;
+            margin: 0px;
+            background-color: yellow;
+            border: none;
+        }
+
+
+        #navdiv {
+            display: flex;
+            justify-content: center;
+            gap: 5%;
+            background-color: #6366F1;
+
+        }
+
+        #navdiv div {
+            border-radius: 20px;
+        }
+
+        thead td {
+            padding: 10px 20px;
+            background-color: #6366F1;
+            font-weight: bold;
+
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            margin-top: 0%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="fd">
+            <a href="index.html">
+                <img id="logo" src="https://i.ebayimg.com/images/g/-1EAAOSwkhJgjHii/s-l1600.png">
+            </a>
+        </div>
+        <div class="container1">
+            <div>
+                <a href="admin.html" style="text-decoration: none;">
+                    <p style="color:white;">Admin</p>
+                </a>
+            </div>
+            <div id="logindiv">
+                <a class="ba" id="log">LOGIN</a>
+            </div>
+            <div>
+                <a class="signup" id="sign">SIGNUP</a>
+            </div>
+        </div>
+    </div>
+    <div id="container">
+        <table>
+            <thead>
+                <div id="theaddiv">
+                    <tr>
+                        <td>ID</td>
+                        <td>USERNAME</td>
+                        <td>DOB</td>
+                        <td>LOCATION</td>
+                        <td>ROLE</td>
+                    </tr>
+                </div>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    let tbody = document.querySelector('tbody')
+    let ba = document.querySelector(".ba")
+    let signup = document.querySelector(".signup")
+    let log = document.getElementById("log")
+    let tododata = document.getElementById("tododata")
+    let todonotes = document.getElementById("todonotes")
+    let sign = document.getElementById("sign")
+    let btn = document.getElementById("btn")
+    let currentuser = JSON.parse(localStorage.getItem("currentuser"))
+    let v = JSON.parse(localStorage.getItem("tempuser"))
+    let admin = localStorage.getItem("admin")
+    if(admin){
+        fetch("http://localhost:5000/tempuser")
+        .then(res => res.json())
+        .then((res) => {
+            console.log(res);
+            if (res == "false") {
+                localStorage.removeItem("tempuser")
+            } else {
+                localStorage.removeItem("currentuser")
+                localStorage.setItem("tempuser", JSON.stringify(res))
+                window.location.href="./services.html"
+            }
+        })
+    }
+
+
+    function createdata(data) {
+        tbody.innerHTML = null;
+
+        data.forEach((el, index) => {
+            let tr = document.createElement("tr")
+            let t11 = document.createElement("td")
+            let t12 = document.createElement("td")
+            let input = document.createElement("input")
+            t11.append(input)
+            let submit = document.createElement("button")
+            submit.innerText = "SUBMIT"
+            t12.append(submit)
+            let td10 = document.createElement("select")
+            let op1 = document.createElement("option")
+            let op2 = document.createElement("option")
+            let op3 = document.createElement("option")
+            op1.value = "username"
+            op2.value = "dob"
+            op3.value = "location"
+            op1.innerText = "username"
+            op2.innerText = "dob"
+            op3.innerText = "location"
+            td10.append(op1, op2, op3)
+            td10.style.marginTop = "8px"
+            let td3 = document.createElement("td")
+            td3.textContent = el._id
+            let td4 = document.createElement("td")
+            td4.textContent = el.username
+            let td5 = document.createElement("td")
+            td5.textContent = el.dob
+            let td6 = document.createElement("td")
+            td6.textContent = el.location
+            let td7 = document.createElement("td")
+            td7.textContent = el.role
+            let td8 = document.createElement("td")
+            let td9 = document.createElement("td")
+            let checkotp = document.createElement('input')
+            let vcbtn = document.createElement('button')
+            vcbtn.innerText = 'UPDATE==>'
+            let delbtn = document.createElement('button')
+            delbtn.innerText = 'DELETE'
+            delbtn.style.backgroundColor = 'red'
+            delbtn.style.border = 'none'
+            delbtn.style.padding = '10px 20px'
+            delbtn.style.color = 'white'
+            delbtn.style.borderRadius = '10px'
+            vcbtn.style.backgroundColor = 'green'
+            vcbtn.style.border = 'none'
+            vcbtn.style.padding = '10px 20px'
+            vcbtn.style.color = 'white'
+            vcbtn.style.borderRadius = '10px'
+            vcbtn.style.fontFamily = 'sans-serif'
+            vcbtn.style.fontWeight = '700'
+            delbtn.style.fontFamily = 'sans-serif'
+            delbtn.style.fontWeight = '700'
+
+
+            td8.append(vcbtn)
+            td9.append(delbtn)
+
+            tr.append(td3, td4, td5, td6, td7, td9, td8, td10, t11, t12)
+            tbody.append(tr)
+
+            delbtn.addEventListener('click', () => {
+                if (v) {
+                    let data = {
+                        id: el._id
+                    }
+                    fetch("https://tan-coati-belt.cyclic.app/app/delete", {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(res => res.json())
+                        .then((res) => {
+                            alert("DELETE SUCESS")
+                            tbody.innerHTML = null
+                            createdata(res)
+                        })
+                        .catch(err => console.log(err))
+                } else {
+                    alert("Please login")
+                }
+
+            })
+            submit.addEventListener('click', () => {
+                if (v === null) {
+                    alert("Login first")
+                } else if (input.value == "") {
+                    alert("provide input field")
+                }
+                else {
+                    let name = localStorage.getItem("temp")
+                    let token = localStorage.getItem("token")
+
+                    let data = {
+                        type: td10.value,
+                        value: input.value,
+                        id: el._id,
+                        role: name,
+                        token: token
+                    }
+
+                    fetch("https://tan-coati-belt.cyclic.app/app/updating", {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(res => res.json())
+                        .then((res) => {
+                            if (res !== "notanadmin") {
+                                alert("UPDATED SUCCESFULLY")
+                                tbody.innerHTML = null
+                                createdata(res)
+                                if (el.username === name) {
+                                    localStorage.clear()
+                                    window.location.href = "./login.html"
+                                }
+                            } else if (res == "notanadmin") {
+                                alert("Needed Admin Permission")
+                            }
+
+                        })
+                        .catch(err => console.log(err))
+                }
+
+            })
+
+        });
+    }
+
+</script>
+
+</html>

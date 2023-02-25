@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -93,28 +94,34 @@
     let b1 = document.getElementById("b1")
     let email = document.getElementById("input1")
     let password = document.getElementById("input2")
+    
     b1.addEventListener("click", () => {
-        let data = {
-            email: email.value,
-            password: password.value
-        }
-        fetch("http://localhost:5000/loginuser", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then((res) => {
-                if(res!="notexists"){
-                    alert("Logging Successful")
-                    localStorage.removeItem("tempuser")
-                    localStorage.clear()
-                    localStorage.setItem("currentuser",JSON.stringify(res))
-                    window.location.href="./services.html"
-                }
+        if (email.value == "admin" && password.value == "admin") {
+            localStorage.setItem("admin","admin")
+            window.location.href = "./admin.html"
+        } else {
+            let data = {
+                email: email.value,
+                password: password.value
+            }
+            fetch("http://localhost:5000/loginuser", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
             })
+                .then(res => res.json())
+                .then((res) => {
+                    if (res != "notexists") {
+                        alert("Logging Successful")
+                        localStorage.removeItem("tempuser")
+                        localStorage.clear()
+                        localStorage.setItem("currentuser", JSON.stringify(res))
+                        window.location.href = "./services.html"
+                    }
+                })
+        }
     })
 </script>
 
