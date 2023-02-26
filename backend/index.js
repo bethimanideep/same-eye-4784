@@ -7,18 +7,33 @@ const app = express()
 const cors = require("cors")
 const { connection, temp, model } = require("./configs/db")
 const { validatoor } = require("./middleware/validator")
+var cloudinary = require('cloudinary');
+const fileUpload = require("express-fileupload")
+const { router } = require("./uploadimage")
+//file uploading
+app.use(fileUpload({
+    useTempFiles: true
+}))
+
 app.use(cors())
 require("./auth")
 app.use(express.json())
 app.use(express.static(path.join(__dirname, "client")))
-
+app.use("",router)
 function isLoggedIn(req, res, next) {
     req.user ? next() : res.sendStatus(401);
 }
+//cloudinary
+cloudinary.config({
+    cloud_name: 'dhiinmiwr',
+    api_key: '471387892837728',
+    api_secret: '-BTZRpmZJzj32KGnE159YcNRXB8'
+});
+
+
 
 app.get('/', (req, res) => {
-    // res.sendFile((__dirname)+'/index.html');
-    res.send("dlkjl")
+    res.send("Welcome backend")
 })
 
 app.get('/auth/google',
@@ -55,7 +70,8 @@ app.get("/auth/protected", isLoggedIn, async (req, res) => {
         username: req.user.displayName,
         email: req.user.email,
         image: req.user.picture,
-        type: "google"
+        type: "google",
+        importedimages: []
     }
     if (name) {
         let user = await model.findOne({ email: data.email })

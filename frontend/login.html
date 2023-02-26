@@ -121,6 +121,8 @@
                         localStorage.clear()
                         localStorage.setItem("currentuser", JSON.stringify(res))
                         window.location.href = "./services.html"
+                    }else{
+                        alert("Incorrect Credentials")
                     }
                 })
         }
