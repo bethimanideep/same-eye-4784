@@ -188,7 +188,7 @@
     <div class="container">
         <div id="fd">
             <a href="index.html">
-                <img id="logo" src="https://i.ebayimg.com/images/g/-1EAAOSwkhJgjHii/s-l1600.png">
+                <h1>Homepage</h1>
             </a>
         </div>
         <div class="container1">
@@ -242,7 +242,7 @@
         sign.addEventListener("click",()=>{
             localStorage.clear()
         })
-        fetch("http://localhost:5000/admin")
+        fetch("https://bored-pink-chiton.cyclic.app/admin")
         .then(res => res.json())
         .then((res) => {
             createdata(res)
@@ -317,7 +317,7 @@
                     let data = {
                         id: ele._id
                     }
-                    fetch("http://localhost:5000/delete", {
+                    fetch("https://bored-pink-chiton.cyclic.app/delete", {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json"
@@ -348,7 +348,7 @@
                         id: ele._id
                     }
 
-                    fetch("http://localhost:5000/updating", {
+                    fetch("https://bored-pink-chiton.cyclic.app/updating", {
                         method: "PATCH",
                         headers: {
                             "Content-Type": "application/json"

@@ -199,7 +199,7 @@
         let data = {
             email: c
         }
-        fetch("http://localhost:5000/postid", {
+        fetch("https://bored-pink-chiton.cyclic.app/postid", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -207,7 +207,7 @@
             body: JSON.stringify(data)
         })
             .then((res) => {
-                window.location.href = "http://localhost:5000/displaypage"
+                window.location.href = "https://bored-pink-chiton.cyclic.app/displaypage"
             })
 
     })
@@ -249,7 +249,7 @@
         userprofile.append(picdiv, namediv)
     }
     btn.addEventListener("click", () => {
-        fetch("http://localhost:5000/cleararr")
+        fetch("https://bored-pink-chiton.cyclic.app/cleararr")
         localStorage.clear()
         window.location.href = "./login.html"
     })

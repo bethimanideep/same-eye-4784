@@ -11,7 +11,7 @@
             background-color: rgb(238, 161, 97);
         }
 
-        body a {
+        /* body a {
             background-color: rgb(70, 73, 235);
             width: 100px;
             padding: 10px 30px;
@@ -20,7 +20,7 @@
             cursor: pointer;
             color: whitesmoke;
             font-weight: bold;
-        }
+        } */
 
         * {
             font-family: sans-serif;
@@ -29,7 +29,7 @@
 
         #import {
             display: flex;
-            gap: 50px;
+            gap: 10px;
         }
 
 
@@ -52,7 +52,7 @@
             height: 600px;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            padding: 5% 5% 0% 0%;
+            /* padding: 5% 1% 0% 0%; */
             overflow-x: hidden;
             overflow-y: scroll;
         }
@@ -148,7 +148,7 @@
                 }
                 let p = false
                 let f = async (data) => {
-                    await fetch("http://localhost:5000/imgbb", {
+                    await fetch("https://bored-pink-chiton.cyclic.app/imgbb", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -166,10 +166,10 @@
             window.location.reload()
         }, 1000)
     })
-    fetch("http://localhost:5000/getimages")
+    fetch("https://bored-pink-chiton.cyclic.app/getimages")
         .then(res => res.json())
         .then((res) => {
-            createdata(res,5)
+            createdata(res)
             console.log(res);
         })
     function createdata(data, c) {

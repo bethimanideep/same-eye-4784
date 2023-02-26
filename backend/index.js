@@ -115,7 +115,6 @@ app.post("/adduser", async (req, res) => {
         await user.save()
         res.json("success");
     }
-
 })
 app.post("/loginuser", async (req, res) => {
     let email = req.body.email
