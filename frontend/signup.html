@@ -15,7 +15,7 @@
     <div style="display: flex;justify-content: center;align-items: center;">
         <div style="width: 80%;padding-left: 10%;">
             <div style="padding-right: 20%;">
-                <h2 id="account">Create Your Free Account</h2>
+                <h2 id="account" style="color: red;cursor: pointer;">BsHub</h2>
             </div>
             <div>
                 <a class="google-sign-in" href="https://bored-pink-chiton.cyclic.app/auth/google"><span class="icon"></span><span
@@ -62,7 +62,11 @@
     let confirm = document.getElementById('confirm')
     let username = document.getElementById("username")
     let last = document.getElementById('last')
+    let account = document.getElementById('account')
     let gsign = document.querySelector('.google-sign-in')
+    account.addEventListener("click",()=>{
+        window.location.href="./index.html"
+    })
 
     last.addEventListener('click', () => {
         let data = {

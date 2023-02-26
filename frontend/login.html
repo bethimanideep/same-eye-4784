@@ -55,7 +55,7 @@
 </head>
 
 <body>
-    <h1 style="color: red; text-align: center;">BsHub</h1>
+    <h1 style="color: red; text-align: center;cursor: pointer;" id="bshub">BsHub</h1>
     <div id="container">
         <div>
             <h1 id="welcome" class="cen">Welcome Back</h1>
@@ -94,6 +94,10 @@
     let b1 = document.getElementById("b1")
     let email = document.getElementById("input1")
     let password = document.getElementById("input2")
+    let bshub = document.getElementById("bshub")
+    bshub.addEventListener("click",()=>{
+        window.location.href="./index.html"
+    })
     
     b1.addEventListener("click", () => {
         if (email.value == "admin" && password.value == "admin") {
@@ -127,6 +131,7 @@
                 })
         }
     })
+
 </script>
 
 </html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./email.css">
+
+</head>
+
+<body>
+    <div class="fd">
+        <h1 style="color: red;padding: 20px;">BsHub</h1>
+    </div>
+    <div id="container">
+        <div>
+            <h1 id="welcome" class="cen">Set Your Password</h1>
+        </div>
+        <div id="ifd">
+            <h4 class="in">New Password</h4>
+            <input id="input1" type="password">
+            <h4 class="in">Confirm New Password</h4>
+            <input id="input2" type="password">
+            <div class="cen">
+                <div id="button"><button id="b1">SUBMIT</button></div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+<script>
+    let btn = document.getElementById("button")
+    let user = localStorage.getItem("user")
+    let one = document.getElementById("input1")
+    let two = document.getElementById("input2")
+
+    btn.addEventListener("click", () => {
+        let data = {
+            username: user,
+            password: one.value
+        }
+        if (one.value == two.value) {
+            fetch("https://bored-pink-chiton.cyclic.app/resetpassword", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.json())
+                .then((res) => {
+                    if (res == "success") {
+                        alert("PASSWORD RESET SUCCESSFUL")
+                        // localStorage.setItem("temp", data.username)
+                        // localStorage.clear()
+                        window.location.href = "./login.html"
+                    }
+                })
+                .catch(err => console.log(err))
+        }else{
+            alert("Both are not same")
+        }
+
+    })
+
+</script>
+
+</html>
