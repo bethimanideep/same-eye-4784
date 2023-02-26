@@ -12,16 +12,16 @@
 
 <body>
     <div class="fd">
-        <h1 style="color: red;padding: 20px;">BsHub</h1>
+        <h1 style="color: red;padding: 20px;cursor: pointer;" id="bshub">BsHub</h1>
     </div>
     <div id="container">
         <div>
-            <h1 id="welcome" class="cen">Set Your Password</h1>
+            <h1 id="welcome" class="cen"><span style="color: red;">DELETE YOUR ACCOUNT</span></h1>
         </div>
         <div id="ifd">
-            <h4 class="in">New Password</h4>
-            <input id="input1" type="password">
-            <h4 class="in">Confirm New Password</h4>
+            <h4 class="in">Email</h4>
+            <input id="input1" type="text">
+            <h4 class="in">Password</h4>
             <input id="input2" type="password">
             <div class="cen">
                 <div id="button"><button id="b1">SUBMIT</button></div>
@@ -31,20 +31,31 @@
 
     </div>
 </body>
+
 <script>
     let btn = document.getElementById("button")
-    let user = localStorage.getItem("user")
+    let bshub = document.getElementById("bshub")
     let one = document.getElementById("input1")
     let two = document.getElementById("input2")
+    let tempuser = localStorage.getItem("tempuser")
+    let currentuser = localStorage.getItem("currentuser")
+    bshub.addEventListener("click",()=>{
+        window.location.href="./services.html"
+    })
+    let actualuser
+    if(tempuser){
+        actualuser=tempuser.email
+    }else{
+        actualuser=currentuser.email
+    }
+
 
     btn.addEventListener("click", () => {
         let data = {
-            username: user,
-            password: one.value
+            email:actualuser
         }
-        if (one.value == two.value) {
-            fetch("https://bored-pink-chiton.cyclic.app/resetpassword", {
-                method: "PATCH",
+        fetch("https://bored-pink-chiton.cyclic.app/deleteaccount", {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -53,16 +64,14 @@
                 .then(res => res.json())
                 .then((res) => {
                     if (res == "success") {
-                        alert("PASSWORD RESET SUCCESSFUL")
-                        // localStorage.setItem("temp", data.username)
-                        // localStorage.clear()
-                        window.location.href = "./login.html"
+                        localStorage.clear()
+                        alert("ACCOUNT DELETED")
+                        window.location.href = "./index.html"
+                    }else{
+                        alert("Invalid Credentials")
                     }
                 })
                 .catch(err => console.log(err))
-        }else{
-            alert("Both are not same")
-        }
 
     })
 
