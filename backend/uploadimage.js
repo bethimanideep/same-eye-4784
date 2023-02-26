@@ -48,6 +48,34 @@ router.get("/cleararr",async(req,res)=>{
     console.log(arr);
     res.json()    
 })
+router.post("/deleteimages",async(req,res)=>{
+    let index=req.body.index
+    let user=await model.findOne({email:arr[0]})
+    if(user){
+        let a=user.importedimages
+        let up=[]
+        for(i=0;i<a.length;i++){
+            if(index!=i){
+                up.push(a[i])
+            }
+        }
+        console.log(up,user,a);
+        await model.findOneAndUpdate({email:arr[0]},{importedimages:up})
+        res.json(up)
+    }
+})
+router.post("/accountdelete",async(req,res)=>{
+    let email=req.body.email
+    let user=await model.findOne({email:email})
+    console.log(user,email);
+    if(user){
+        await model.findOneAndDelete({email})
+        res.json("success")
+    }else{
+        res.json("Invalid Credentials")
+    }
+})
+
 
 module.exports={
     router,

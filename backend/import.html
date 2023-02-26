@@ -55,6 +55,7 @@
             /* padding: 5% 1% 0% 0%; */
             overflow-x: hidden;
             overflow-y: scroll;
+
         }
 
         #images img {
@@ -81,6 +82,18 @@
         /* Handle on hover */
         #images::-webkit-scrollbar-thumb:hover {
             background: rgba(0, 0, 255, 0.474);
+        }
+        #del{
+            background-color: red;
+            border: none;
+            color: white;
+            font-weight: bold;
+            padding: 3% 5% 3% 5%;
+            border-radius: 10px;
+            margin-left: 40px;
+        }
+        #del:hover{
+            cursor: pointer;
         }
     </style>
 </head>
@@ -115,9 +128,6 @@
                         </div>
                         <div>
                             <a href="http://127.0.0.1:5501/frontend/services.html">Go To Dashboard</a>
-                        </div>
-                        <div>
-                            <button id="btn">DELETE</button>
                         </div>
                     </div>
                 </form>
@@ -175,19 +185,33 @@
             createdata(res)
             console.log(res);
         })
-    function createdata(data, c) {
+    function createdata(data) {
         images.innerHTML = null
         for (let i = data.length - 1; i >= 0; i--) {
             let div = document.createElement("div")
-            let input = document.createElement("input")
+            let del = document.createElement("button")
             let img = document.createElement("img")
             img.setAttribute("src", data[i])
-            if (c) {
-                input.setAttribute("type", "checkbox")
-                div.append(input, img)
-            }
-            div.append(img)
+            del.innerText = "DELETE"
+            del.setAttribute("id","del")
+            div.append(img, del)
             images.append(div)
+            del.addEventListener("click", () => {
+                let data = {
+                    index: i
+                }
+                fetch("https://bored-pink-chiton.cyclic.app/deleteimages", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(res => res.json())
+                    .then((res) => {
+                        createdata(res)
+                    })
+            })
         }
 
     }

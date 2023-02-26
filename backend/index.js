@@ -81,12 +81,12 @@ app.get("/auth/protected", isLoggedIn, async (req, res) => {
             let tempuser = new temp(data)
             await temp.deleteMany()
             await tempuser.save()
-            res.redirect("http://127.0.0.1:5501/frontend/temp.html")
+            res.redirect("https://whimsical-gecko-94ae27.netlify.app/temp.html")
         } else {
             await temp.deleteMany()
             let tempuser = new temp(data)
             await tempuser.save()
-            res.redirect("http://127.0.0.1:5501/frontend/temp.html")
+            res.redirect("https://whimsical-gecko-94ae27.netlify.app/temp.html")
         }
     }
 })
