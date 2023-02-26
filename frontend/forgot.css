@@ -1,5 +1,5 @@
 .fd {
-    background-color: #262a3b !important;
+    background-color: #262a3b;
     height: 80px;
     text-align: center;
 }
@@ -7,16 +7,6 @@
 body {
     margin: 0px;
     padding: 0px;
-    /* background-image: url(https://cdn1.cronometer.com/brand2/assets/DotPatternLarge.svg); */
-    /* background-color: var(--floral-white); */
-    background-position: right bottom;
-    background-repeat: no-repeat;
-
-}
-
-.fd img {
-    width: 9%;
-    margin-top: 1%;
 }
 
 #container {

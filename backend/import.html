@@ -7,17 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body {
+            background-color: rgb(238, 161, 97);
+        }
+
+        body a {
+            background-color: rgb(70, 73, 235);
+            width: 100px;
+            padding: 10px 30px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            color: whitesmoke;
+            font-weight: bold;
+        }
+
         * {
             font-family: sans-serif;
         }
 
+
         #import {
-            border: 1px solid red;
-            display: flex
+            display: flex;
+            gap: 50px;
         }
 
-        #import div {
-            border: 1px solid red;
+
+        #import div:nth-child(1) div {
+            margin-bottom: 7%;
+
+        }
+
+
+        #import>div:nth-child(1) {
+            /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
+            padding: 5%;
         }
 
         #import>div {
@@ -25,13 +49,38 @@
         }
 
         #images {
+            height: 600px;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
+            padding: 5% 5% 0% 0%;
+            overflow-x: hidden;
+            overflow-y: scroll;
         }
 
         #images img {
             width: 100%;
             height: 150px;
+        }
+
+        #images::-webkit-scrollbar {
+            width: 15px;
+        }
+
+        /* Track */
+        #images::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        #images::-webkit-scrollbar-thumb {
+            background: rgba(255, 0, 0, 0.409);
+            border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        #images::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 255, 0.474);
         }
     </style>
 </head>
@@ -40,22 +89,41 @@
     <div id="import">
         <div>
             <div>
-                <h4>Step 1 of 3</h4>
-                <h1>Upload an Image</h1>
-                <p>With contacts to start with, you can get a feel for our tools and get set up for success.
-                    If we find any duplicate contacts, we'll remove them for you.
-                </p>
+                <div>
+
+                    <h4>Step 1 of 3</h4>
+                </div>
+                <div>
+
+                    <h1 style="color: red;">Upload an Image</h1>
+                </div>
+                <div>
+                    <p style="font-weight: bolder;">With Images to start with, you can get a feel for our tools and get
+                        set up for success..</p>
+                </div>
             </div>
             <div>
                 <form action="" id="form">
-                    <input type="file" id="file">
-                    <input type="submit" id="sub">
+                    <div style="display: flex; gap: 40px;align-items: center;">
+                        <div>
+
+                            <input type="file" id="file">
+                        </div>
+                        <div>
+                            <input type="submit" id="sub"
+                                style="background-color: rgb(70, 73, 235);width: 100px;padding: 10px 30px;border-radius: 10px;border: none;cursor: pointer;color: whitesmoke;font-weight: bold;">
+                        </div>
+                        <div>
+                            <a href="http://127.0.0.1:5501/frontend/services.html">Go To Dashboard</a>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
         <div id="images">
 
         </div>
+
     </div>
 </body>
 <script>
@@ -91,28 +159,36 @@
                     return p
                 }
                 f(data)
-                window.location.reload()
 
             })
             .catch(err => console.log(err))
+        setTimeout(() => {
+            window.location.reload()
+        }, 1000)
     })
     fetch("http://localhost:5000/getimages")
         .then(res => res.json())
         .then((res) => {
-            createdata(res)
+            createdata(res,5)
             console.log(res);
         })
-    function createdata(data) {
+    function createdata(data, c) {
         images.innerHTML = null
         for (let i = data.length - 1; i >= 0; i--) {
             let div = document.createElement("div")
+            let input = document.createElement("input")
             let img = document.createElement("img")
             img.setAttribute("src", data[i])
+            if (c) {
+                input.setAttribute("type", "checkbox")
+                div.append(input, img)
+            }
             div.append(img)
             images.append(div)
         }
 
     }
+
 </script>
 
 </html>
