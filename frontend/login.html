@@ -8,78 +8,167 @@
     <title>Document</title>
     <link rel="stylesheet" href="./login.css">
     <style>
-        .google-sign-in {
-            margin-top: 15px;
-            background: #5886d4;
-            border-radius: 0.1875rem;
-            border: none;
-            clear: both;
-            color: #fff;
-            cursor: pointer;
-            display: inline-block;
-            height: 40px;
-            text-align: center;
+        /* Mobile-first styles */
+        body {
+            margin: 0;
             padding: 0;
-            position: relative;
-            white-space: nowrap;
-            width: 80%;
-            font-weight: 500;
+            font-family: Arial, sans-serif;
+            background-color: white;
         }
 
-        .google-sign-in .icon {
-            -webkit-border-top-left-radius: 0.09375rem;
-            border-top-left-radius: 0.09375rem;
-            -webkit-border-bottom-left-radius: 0.09375rem;
-            border-bottom-left-radius: 0.09375rem;
-            background-color: #fff;
-            background-image: url(//static.hsappstatic.net/LoginUI/static-1.7574/img/google-logo.png);
-            background-position: 50%;
-            background-repeat: no-repeat;
-            background-size: 24px;
-            height: 38px;
-            left: 1px;
+        .fd {
+            background-color: #262a3b !important;
+            height: 60px;
+            text-align: center;
+        }
+
+        .fd img {
+            width: 8%;
+            margin-top: 2%;
+        }
+
+        #container {
+            max-width: 400px;
+            /* Limit the width for larger screens */
+            margin: 10px auto;
+            padding: 10px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border-radius: 10px;
+            background-color: white;
             position: absolute;
-            top: 1px;
-            vertical-align: middle;
-            width: 38px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px;
+            width: 90%;
+            /* Adjust width as needed */
         }
 
-        .google-sign-in .buttonText {
-            display: inline-block;
-            font-family: Roboto, sans-serif;
-            font-weight: 500;
-            margin-top: 9px;
-            vertical-align: middle;
+        #input1,
+        #input2 {
+            width: 100%;
+            height: 30px;
+            padding: 5px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            border: 0.5pt solid black;
+            font-size: 13px;
+        }
+
+        .cen {
+            text-align: center;
+        }
+
+        #button {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        #b1 {
+            width: 100%;
+            max-width: 200px;
+            /* Limit the width for larger screens */
+            font-weight: bold;
+            font-size: 14px;
+            height: 40px;
+            justify-content: center;
+            border-radius: 8px;
+            border: 1px solid white;
+            color: white;
+            background-color: #FF0800;
+            cursor: pointer;
+        }
+
+        .in {
+            margin-bottom: 5px;
+            padding: 0px;
+            font-size: 15px;
+        }
+
+        #ifd {
+            width: 100%;
+        }
+
+        #signup {
+            display: block;
+            margin-top: 0px;
+            padding-bottom: 20px;
+        }
+
+        #forgot {
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        #p {
+            display: block;
+            margin: 3px;
+        }
+
+
+        #welcome {
+            padding-top: 30px;
+        }
+
+        /* Hover effect for login button */
+        #button:hover {
+            opacity: 0.9;
+        }
+
+        a {
+            color: #0039a6;
+        }
+
+        /* Tablet and desktop styles */
+        @media screen and (min-width: 768px) {
+            .fd img {
+                width: 5%;
+            }
+
+            #container {
+                width: 50%;
+                max-width: 400px;
+                /* Increase the max-width for larger screens */
+                padding: 3%;
+            }
+
+            #b1 {
+                max-width: 250px;
+            }
+
+            .google-sign-in {
+                display: inline-block;
+                background-color: #4285f4;
+                color: #ffffff;
+                text-decoration: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                transition: background-color 0.2s ease;
+            }
+
         }
     </style>
 </head>
 
 <body>
-    <h1 style="color: red; text-align: center;cursor: pointer;" id="bshub">BsHub</h1>
     <div id="container">
-        <div>
-            <h1 id="welcome" class="cen">Welcome Back</h1>
-        </div>
+        <h1 style="color: #FF0800; text-align: center;cursor: pointer;" id="bshub">Login</h1>
         <div id="ifd">
             <h4 class="in">Email Address</h4>
-            <input id="input1" type="text" placeholder="Username">
+            <input id="input1" type="email" placeholder="Username">
             <h4 class="in">Password</h4>
             <input id="input2" type="password" placeholder="Password">
             <div class="cen">
                 <div id="button"><button id="b1">LOG IN</button></div>
+                <br>
                 <div>
-                    <a class="google-sign-in" href="https://bored-pink-chiton.cyclic.app/auth/google"><span class="icon"></span><span
-                            class="buttonText">Sign in
+                    <a class="google-sign-in" href="http://localhost:8080/user/auth/google"><span
+                            class="icon"></span><span class="buttonText">Sign in
                             with Google</span></a>
-
                 </div>
-                <a id="forgot" href="./forgot.html">Forgot your password?</a>
-                <div id="loginhover">
-                    <span>&times;</span>
-                    <div>h1</div>
-                    <div><input type="email"></div>
-                    <button style="color: white;border-radius: 10px;">RESET PASSWORD</button>
-                </div>
+                <a id="forgot" href="./forgotpassword.html">Forgot your password?</a>
 
                 <p id="p">Not a member?</p>
                 <a id="signup" class="ank" href="signup.html">Sign Up</a>
@@ -95,15 +184,15 @@
     let email = document.getElementById("input1")
     let password = document.getElementById("input2")
     let bshub = document.getElementById("bshub")
-    bshub.addEventListener("click",()=>{
-        window.location.href="./index.html"
+    bshub.addEventListener("click", () => {
+        window.location.href = "./index.html"
     })
-    
+
     b1.addEventListener("click", () => {
         if (email.value == "admin" && password.value == "admin") {
             localStorage.removeItem("currentuser")
             localStorage.removeItem("tempuser")
-            localStorage.setItem("admin","admin")
+            localStorage.setItem("admin", "admin")
             window.location.href = "./admin.html"
         } else {
             let data = {
@@ -125,7 +214,7 @@
                         localStorage.clear()
                         localStorage.setItem("currentuser", JSON.stringify(res))
                         window.location.href = "./services.html"
-                    }else{
+                    } else {
                         alert("Incorrect Credentials")
                     }
                 })
